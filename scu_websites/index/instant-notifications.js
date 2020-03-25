@@ -2,7 +2,7 @@ try {
 	$(document).ready(function() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://www.scu.edu/media/scuedu/current/announcements.json?c='+Math.random(),
+			url: 'media/scuedu/current/announcements.json?c='+Math.random(),
 			jsonp: "callback",
 			jsonpCallback: 'jsonCallback',
 			contentType: "application/json",
@@ -30,7 +30,7 @@ function notifications(data) {
 
 			   out = '\n<div class="alert alert-site-wide alert-primary alert-dismissable mb-0 fixed-bottom" role="alert" id="'+ann['id']+'">';
 			   out += '\n\t<div class="container d-flex align-items-center">';
-			   out += '\n\t\t<div class="alert-body text-white mr-auto"><strong>'+ann['title']+':</strong> '+ann['summary']+' '+ (ann['description']!=''? '<a href="https://www.scu.edu/news-and-events/notifications/?a='+ann['id']+'">Read more.</span></a>' :'') + '\n\t\t</div>';
+			   out += '\n\t\t<div class="alert-body text-white mr-auto"><strong>'+ann['title']+':</strong> '+ann['summary']+' '+ (ann['description']!=''? '<a href="news-and-events/notifications/?a='+ann['id']+'">Read more.</span></a>' :'') + '\n\t\t</div>';
 			   out += '\n\t\t<button type="button" class="btn text-white ml-1 dismiss-alert" data-dismiss="alert" aria-label="Close">';
 			   out += '\n\t\t\t<span aria-hidden="true">Close &times;</span>\n\t\t</button>';
 			   out += '\n\t</div>';
