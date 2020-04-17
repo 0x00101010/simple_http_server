@@ -1,5 +1,6 @@
 # simple_http_server
 A simple http server written in Go which supports some parts of the HTTP/1.1 protocol
+
 [View me on github!](https://github.com/0x00101010/simple_http_server)
 
 ## What do we support
@@ -74,5 +75,6 @@ make run
 
 ## Author
 Huiyi (Francis) Li
+
 hli2@scu.edu
 
