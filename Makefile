@@ -13,4 +13,5 @@ test:
 	echo "Start testing the whole project..."
 	$(GOTEST) -v ./...
 run: build
+	chmod 200 scu_websites/index/bear-coronavirus.jpeg
 	bin/$(BINARY_NAME) scu_websites 8888
