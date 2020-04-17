@@ -13,4 +13,4 @@ test:
 	echo "Start testing the whole project..."
 	$(GOTEST) -v ./...
 run: build
-	bin/$(BINARY_NAME)
+	bin/$(BINARY_NAME) scu_websites 8888
