@@ -1,5 +1,5 @@
 # simple_http_server
-A simple http server written in Go which supports some parts of the HTTP/1.0 protocol
+A simple http server written in Go which supports some parts of the HTTP/1.1 protocol
 
 ## What do we support
 
@@ -7,6 +7,48 @@ A simple http server written in Go which supports some parts of the HTTP/1.0 pro
 * serving files with extensions *.jpg, *.html, *.txt, *.jpg, *.gif
 * Some of HTTP Status Code (200, 404, 403, 400)
 * Configuring document root and port
+
+## Details with screenshots
+* This is a screenshot of how to run the program.
+![image info](./screenshots/01.RUN_PROGRAM.png)
+
+* This is a screenshot of successful result (with some icons/images not shown as intended, see below point for explanation)
+![image info](./screenshots/02.DEFAULT_PAGE.png)
+
+* correct handling of HTTP status codes, as you could see from below picture, we've correctly handled status codes of 200, 403, 404, etc.
+![image info](./screenshots/03.HTTP_STATUS_CODE.png)
+
+* Event driven (Utilizing the same connection for multiple requests) & multithreading, [internal/server/server.go](../blob/master/internal/server/server.go)
+```go
+// ListenAndServe starts the http listener and start accepting incoming
+// http requests
+func (s *Server) ListenAndServe() {
+	for {
+		conn, err := s.conns.TryAcceptNewConn(s.listener)
+		if err == connpool.ErrFullCapacity {
+			time.Sleep(2 * time.Second)
+		} else {
+			time.Sleep(100 * time.Millisecond)
+		}
+
+		// one minute live time for persistent connections
+		conn.SetDeadline(time.Now().Add(60 * time.Second))
+
+        // handle every connection with a different go thread
+		go s.HandleRequest(conn)
+	}
+}
+```
+
+* Close connection after every request, since we're doing active connections, we don't close connection after request, we close them when they're no longer used after 1 minute. [internal/server/server.go](../blob/master/internal/server/server.go)
+
+```go
+// one minute live time for persistent connections
+conn.SetDeadline(time.Now().Add(60 * time.Second))
+```
+
+
+
 
 ## Environment
 * go version 1.13+

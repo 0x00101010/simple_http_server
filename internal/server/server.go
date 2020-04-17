@@ -70,9 +70,8 @@ func (s *Server) ListenAndServe() {
 			time.Sleep(100 * time.Millisecond)
 		}
 
-		// simple heuristic
-		// one minute time for persistent connections
-		conn.SetDeadline(time.Now().Add(10 * time.Second))
+		// one minute live time for persistent connections
+		conn.SetDeadline(time.Now().Add(60 * time.Second))
 
 		go s.HandleRequest(conn)
 	}
